@@ -1,0 +1,31 @@
+{
+  "name": "qawskyer/qmassconverter",
+  "version": "0.1",
+  "type": "library",
+  "description": "Image mass converter library",
+  "keywords": [
+    "converter"
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+
+  },
+  "require": {
+    "php": "^7.2|^8",
+    "ext-gd": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8|^11"
+  },
+  "autoload": {
+    "psr-4": {
+      "MassConverter\\": "src/MassConverter/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MassConverter\\Test\\": "test/MassConverter/"
+    }
+  }
+}
