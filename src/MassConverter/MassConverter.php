@@ -4,6 +4,7 @@ namespace MassConverter;
 
 use MassConverter\Converter\FileConverterInterface;
 use MassConverter\Converter\JpegToPngConverter;
+use MassConverter\exceptions\ConvertingException;
 use MassConverter\FileFinder\FileFinder;
 use MassConverter\FileFinder\FileFinderInterface;
 use MassConverter\FileFinder\FilterInterface;
@@ -16,7 +17,7 @@ class MassConverter
 {
     protected $path;
     protected $newPath;
-    protected $filter;
+    protected $filters;
     protected $files = [];
     protected $successCount = 0;
     protected $errors = [];
@@ -45,9 +46,9 @@ class MassConverter
         );
     }
     
-    public function setFilter(FilterInterface $filter): self
+    public function setFilters(FilterInterface $filters): self
     {
-        $this->filter = $filter;
+        $this->filters = $filters;
         
         return $this;
     }
@@ -90,9 +91,9 @@ class MassConverter
                 if ($this->fileConverter->convert($file, $this->newPath, $filename)) {
                     $this->successCount++;
                 } else {
-                    throw new RuntimeException('Ошибка сохранения');
+                    throw new ConvertingException('Ошибка сохранения');
                 }
-            } catch (RuntimeException $e) {
+            } catch (ConvertingException $e) {
                 $this->addError("[{$filename}." . $this->fileConverter->getTargetExtension() . "]: {$e->getMessage()}");
             }
         }
